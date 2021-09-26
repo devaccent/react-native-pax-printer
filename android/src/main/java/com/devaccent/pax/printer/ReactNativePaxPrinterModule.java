@@ -9,7 +9,6 @@ import com.pax.dal.IDAL;
 import com.pax.dal.IPrinter;
 import com.pax.neptunelite.api.NeptuneLiteUser;
 
-@ReactModule(name = ReactNativePaxPrinterModule.REACT_CLASS)
 public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   protected static final String REACT_CLASS = "PaxPrinter";
   private final ReactApplicationContext reactContext;
@@ -38,17 +37,17 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   public void initPrinter(Promise promise) {
     try {
       printer.init();
-      promise.resolve();
+      promise.resolve(null);
     } catch(Exception e) {
       promise.reject("Error initializing the printer", e);
     }
   }
 
   @ReactMethod
-  public void setGrayLevel(Double grayLevel, Promise promise) {
+  public void setGrayLevel(Integer grayLevel, Promise promise) {
     try {
       printer.setGray(grayLevel);
-      promise.resolve();
+      promise.resolve(null);
     } catch(Exception e) {
       promise.reject("Error setting gray level", e);
     }
@@ -58,7 +57,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   public void addSimpleLine(String text, Promise promise) {
     try {
       printer.printStr(text, null);
-      promise.resolve();
+      promise.resolve(null);
     } catch(Exception e) {
       promise.reject("Error adding line", e);
     }
@@ -68,7 +67,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   public void printLines(Promise promise){
     try {
       printer.start();
-      promise.resolve();
+      promise.resolve(null);
     } catch(Exception e) {
       promise.reject("Print error", e);
     }
@@ -77,7 +76,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void cutPaper(Double cutMode, Promise promise){
     try {
-      promise.resolve();
+      promise.resolve(null);
       printer.cutPaper(cutMode.intValue());
     } catch(Exception e) {
       promise.reject("Error cutting the paper", e);
@@ -92,6 +91,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
       printer.printStr(text, null);
       printer.start();
       printer.cutPaper(cutMode.intValue());
+      promise.resolve(null);
     } catch(Exception e) {
       promise.reject("Create Event Error", e);
     }
