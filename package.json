@@ -1,0 +1,22 @@
+{
+  "name": "react-native-pax-printer",
+  "version": "0.0.1",
+  "description": "React-Native printer module for PAX POS devices\n",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "react-native",
+    "pax pos",
+    "printer"
+  ],
+  "repository": "https://github.com/devaccent/react-native-pax-printer",
+  "author": "DEVACCENT <alex@devaccent.com> (https://github.com/devaccent)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devaccent/react-native-pax-printer/issues"
+  },
+  "homepage": "https://github.com/devaccent/react-native-pax-printer/#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
