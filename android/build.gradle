@@ -34,5 +34,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
+    implementation files('libs\\GLPage_V1.03.00_20181030.jar')
     implementation files('libs\\NeptuneLiteApi_V3.25.00_20210706.jar')
+    implementation 'org.json:json:20210307'
 }
