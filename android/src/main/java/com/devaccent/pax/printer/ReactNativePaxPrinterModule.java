@@ -1,32 +1,44 @@
 package com.devaccent.pax.printer;
 
+import android.util.Log;
+
+import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+
+import com.devaccent.pax.printer.receipt.ReceiptBitmapGenerator;
+import com.devaccent.pax.printer.receipt.ReceiptStorage;
+
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Promise;
+import com.facebook.react.module.annotations.ReactModule;
 
 import com.pax.dal.IDAL;
 import com.pax.dal.IPrinter;
 import com.pax.neptunelite.api.NeptuneLiteUser;
 
+@ReactModule(name = ReactNativePaxPrinterModule.REACT_CLASS)
 public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
-  protected static final String REACT_CLASS = "PaxPrinter";
-  private final ReactApplicationContext reactContext;
+	protected static final String REACT_CLASS = "PaxPrinter";
+	private final ReactApplicationContext reactContext;
 
-  private IDAL dal;
-  private IPrinter printer;
+	private IDAL dal;
+	private IPrinter printer;
 
-  public ReactNativePaxPrinterModule(ReactApplicationContext reactContext) {
-    super(reactContext);
-    this.reactContext = reactContext;
+	public ReactNativePaxPrinterModule(ReactApplicationContext reactContext) {
+		super(reactContext);
+		this.reactContext = reactContext;
 
-    try {
+		try {
       dal = NeptuneLiteUser.getInstance().getDal(reactContext);
       printer = dal.getPrinter();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+		} catch (Exception e) {
+//       Toast.makeText(this.reactContext, "Could not find printer", Toast.LENGTH_LONG).show();
+		}
+	}
 
   @Override
   public String getName() {
@@ -34,66 +46,74 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void initPrinter(Promise promise) {
+  public void initPrinter() {
     try {
       printer.init();
-      promise.resolve(null);
     } catch(Exception e) {
-      promise.reject("Error initializing the printer", e);
+//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
     }
   }
 
   @ReactMethod
-  public void setGrayLevel(Integer grayLevel, Promise promise) {
+  public void setGrayLevel(Integer grayLevel) {
     try {
       printer.setGray(grayLevel);
-      promise.resolve(null);
     } catch(Exception e) {
-      promise.reject("Error setting gray level", e);
+//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
     }
   }
 
   @ReactMethod
-  public void addSimpleLine(String text, Promise promise) {
+  public void addSimpleLine(String text) {
     try {
       printer.printStr(text, null);
-      promise.resolve(null);
     } catch(Exception e) {
-      promise.reject("Error adding line", e);
+//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
     }
   }
 
   @ReactMethod
-  public void printLines(Promise promise){
+  public void start(){
     try {
       printer.start();
-      promise.resolve(null);
     } catch(Exception e) {
-      promise.reject("Print error", e);
+//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
     }
   }
 
   @ReactMethod
-  public void cutPaper(Double cutMode, Promise promise){
+  public void cutPaper(Double cutMode){
     try {
-      promise.resolve(null);
       printer.cutPaper(cutMode.intValue());
     } catch(Exception e) {
-      promise.reject("Error cutting the paper", e);
+//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
     }
   }
 
   @ReactMethod
-  public void printOneLine(String text, Double cutMode, Promise promise) {
+  public void printLine(String text, Double cutMode) {
     try {
-      printer.init();
+			printer.init();
+			printer.setGray(3);
+			printer.printStr(text, null);
+			printer.start();
+    } catch(Exception e) {
+//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
+    }
+  }
+
+  @ReactMethod
+  public void printReceiptPage(String pageOptions){
+		Bitmap bitmap = ReceiptBitmapGenerator.generateBitmap(this.reactContext, pageOptions, 384);
+		ReceiptStorage.store(this.reactContext, "criexpos", bitmap, "test-receipt");
+
+		try {
+	    printer.init();
       printer.setGray(3);
-      printer.printStr(text, null);
+      printer.printBitmap(bitmap);
       printer.start();
-      printer.cutPaper(cutMode.intValue());
-      promise.resolve(null);
-    } catch(Exception e) {
-      promise.reject("Create Event Error", e);
-    }
+		} catch (Exception e) {
+      Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
+		}
   }
 }
