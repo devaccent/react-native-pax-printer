@@ -2,7 +2,6 @@ package com.devaccent.pax.printer;
 
 import android.util.Log;
 
-import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
