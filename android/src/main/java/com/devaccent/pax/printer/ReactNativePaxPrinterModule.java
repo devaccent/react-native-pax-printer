@@ -44,37 +44,37 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
 
 	@ReactMethod
 	public void initPrinter() {
-    try {
-      printer.init();
-    } catch(Exception e) {}
+	    try {
+	      printer.init();
+	    } catch(Exception e) {}
 	}
 
 	@ReactMethod
 	public void setGrayLevel(Integer grayLevel) {
-    try {
-      printer.setGray(grayLevel);
-    } catch(Exception e) {}
+	    try {
+	      printer.setGray(grayLevel);
+	    } catch(Exception e) {}
 	}
 
 	@ReactMethod
 	public void addTextLine(String text) {
-    try {
-      printer.printStr(text, null);
-    } catch(Exception e) {}
+	    try {
+	      printer.printStr(text, null);
+	    } catch(Exception e) {}
 	}
 
 	@ReactMethod
 	public void start(){
-    try {
-      printer.start();
-    } catch(Exception e) {}
+	    try {
+	      printer.start();
+	    } catch(Exception e) {}
 	}
 
 	@ReactMethod
 	public void cutPaper(Double cutMode){
-    try {
-      printer.cutPaper(cutMode.intValue());
-    } catch(Exception e) {}
+	    try {
+	      printer.cutPaper(cutMode.intValue());
+	    } catch(Exception e) {}
 	}
 
 	@ReactMethod

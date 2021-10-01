@@ -20,45 +20,45 @@ public class ReceiptUnit {
 	public ReceiptUnit(JSONObject unitSettings) {
 		try {
 			text = unitSettings.getString("text");
-	  } catch (JSONException e) {}
+	    } catch (JSONException e) {}
 
-	  try {
-      String fontSizeKey = unitSettings.getString("fontSize");
-      if(ReceiptPageConstants.FONT_SIZES.containsKey(fontSizeKey)){
-        fontSize = (Integer) ReceiptPageConstants.FONT_SIZES.get(fontSizeKey);
-      }
-    } catch (JSONException e) {}
+	    try {
+            String fontSizeKey = unitSettings.getString("fontSize");
+            if(ReceiptPageConstants.FONT_SIZES.containsKey(fontSizeKey)){
+                fontSize = (Integer) ReceiptPageConstants.FONT_SIZES.get(fontSizeKey);
+            }
+        } catch (JSONException e) {}
 
-	  try {
+	    try {
 			String alignmentKey = unitSettings.getString("align");
 			if(ReceiptPageConstants.ALIGNMENTS.containsKey(alignmentKey)){
 				alignment = (EAlign) ReceiptPageConstants.ALIGNMENTS.get(alignmentKey);
 			}
 		} catch (JSONException e) {}
 
-	  try {
-      String textStyleKey = unitSettings.getString("textStyle");
-      if(ReceiptPageConstants.TEXT_STYLES.containsKey(textStyleKey)){
-        textStyle = (Integer) ReceiptPageConstants.TEXT_STYLES.get(textStyleKey);
-      }
-    } catch (JSONException e) {}
+	    try {
+            String textStyleKey = unitSettings.getString("textStyle");
+            if(ReceiptPageConstants.TEXT_STYLES.containsKey(textStyleKey)){
+                textStyle = (Integer) ReceiptPageConstants.TEXT_STYLES.get(textStyleKey);
+            }
+        } catch (JSONException e) {}
 
-    try {
-      Integer scaleHeightFactor = unitSettings.getInt("scaleHeight");
-      if(scaleHeightFactor >= 1 && scaleHeightFactor <= 5){
-        scaleHeight = scaleHeightFactor;
-      }
-    } catch (JSONException e) {}
+        try {
+            Integer scaleHeightFactor = unitSettings.getInt("scaleHeight");
+            if(scaleHeightFactor >= 1 && scaleHeightFactor <= 5){
+                scaleHeight = scaleHeightFactor;
+            }
+        } catch (JSONException e) {}
 
-    try {
-      Integer scaleWidthFactor = unitSettings.getInt("scaleWidth");
-      if(scaleWidthFactor >= 1 && scaleWidthFactor <= 5){
-        scaleWidth = scaleWidthFactor;
-      }
-    } catch (JSONException e) {}
+        try {
+            Integer scaleWidthFactor = unitSettings.getInt("scaleWidth");
+            if(scaleWidthFactor >= 1 && scaleWidthFactor <= 5){
+                scaleWidth = scaleWidthFactor;
+            }
+        } catch (JSONException e) {}
 
-	  try {
-      fontSize = unitSettings.getInt("fontSize");
-	  } catch (JSONException e) {}
-  }
+	    try {
+            fontSize = unitSettings.getInt("fontSize");
+	    } catch (JSONException e) {}
+    }
 }

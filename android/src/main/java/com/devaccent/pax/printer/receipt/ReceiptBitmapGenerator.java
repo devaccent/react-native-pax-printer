@@ -24,26 +24,26 @@ public class ReceiptBitmapGenerator {
 			JSONObject pageObject = new JSONObject(pageOptions);
 			JSONArray lines = ReceiptUnserializer.getLines(pageObject);
 
-	    for (int i = 0; i < lines.length(); i++) {
-	      JSONArray units = ReceiptUnserializer.getUnits(lines.getJSONObject(i));
-	      ILine pageLine = page.addLine();
+		    for (int i = 0; i < lines.length(); i++) {
+				JSONArray units = ReceiptUnserializer.getUnits(lines.getJSONObject(i));
+				ILine pageLine = page.addLine();
 
-	      for (int j = 0; j < units.length(); j++) {
-          JSONObject unitSettings = units.getJSONObject(j);
-          ReceiptUnit unit = ReceiptUnserializer.getUnit(unitSettings);
-          pageLine.addUnit(unit.text, unit.fontSize, unit.alignment, unit.textStyle);
-	      }
+				for (int j = 0; j < units.length(); j++) {
+					JSONObject unitSettings = units.getJSONObject(j);
+					ReceiptUnit unit = ReceiptUnserializer.getUnit(unitSettings);
+					pageLine.addUnit(unit.text, unit.fontSize, unit.alignment, unit.textStyle);
+		        }
+			}
+	    } catch (JSONException e) {
+            Log.d("", e.toString());
 	    }
-	  } catch (JSONException e) {
-      Log.d("", e.toString());
-	  }
 
-	  return pageBuilder.pageToBitmap(page, width);
-  }
+	    return pageBuilder.pageToBitmap(page, width);
+    }
 
-  private void getImage(){
+	private void getImage(){
 // 		Options options = new Options();
 // 		options.inScaled = false;
 // 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.rect,options);
-  }
+	}
 }
