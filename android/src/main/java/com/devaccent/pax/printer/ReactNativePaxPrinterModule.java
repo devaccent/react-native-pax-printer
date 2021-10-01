@@ -35,9 +35,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
 		try {
       dal = NeptuneLiteUser.getInstance().getDal(reactContext);
       printer = dal.getPrinter();
-		} catch (Exception e) {
-//       Toast.makeText(this.reactContext, "Could not find printer", Toast.LENGTH_LONG).show();
-		}
+		} catch (Exception e) {}
 	}
 
   @Override
@@ -49,45 +47,35 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   public void initPrinter() {
     try {
       printer.init();
-    } catch(Exception e) {
-//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
-    }
+    } catch(Exception e) {}
   }
 
   @ReactMethod
   public void setGrayLevel(Integer grayLevel) {
     try {
       printer.setGray(grayLevel);
-    } catch(Exception e) {
-//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
-    }
+    } catch(Exception e) {}
   }
 
   @ReactMethod
   public void addSimpleLine(String text) {
     try {
       printer.printStr(text, null);
-    } catch(Exception e) {
-//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
-    }
+    } catch(Exception e) {}
   }
 
   @ReactMethod
   public void start(){
     try {
       printer.start();
-    } catch(Exception e) {
-//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
-    }
+    } catch(Exception e) {}
   }
 
   @ReactMethod
   public void cutPaper(Double cutMode){
     try {
       printer.cutPaper(cutMode.intValue());
-    } catch(Exception e) {
-//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
-    }
+    } catch(Exception e) {}
   }
 
   @ReactMethod
@@ -97,9 +85,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
 			printer.setGray(3);
 			printer.printStr(text, null);
 			printer.start();
-    } catch(Exception e) {
-//       Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
-    }
+    } catch(Exception e) {}
   }
 
   @ReactMethod
@@ -112,8 +98,6 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
       printer.setGray(3);
       printer.printBitmap(bitmap);
       printer.start();
-		} catch (Exception e) {
-      Toast.makeText(this.reactContext, e.toString(), Toast.LENGTH_LONG).show();
-		}
+		} catch (Exception e) {}
   }
 }
