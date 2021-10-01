@@ -57,7 +57,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void addSimpleLine(String text) {
+  public void addTextLine(String text) {
     try {
       printer.printStr(text, null);
     } catch(Exception e) {}
@@ -78,25 +78,15 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void printLine(String text, Double cutMode) {
-    try {
-			printer.init();
-			printer.setGray(3);
-			printer.printStr(text, null);
-			printer.start();
-    } catch(Exception e) {}
-  }
-
-  @ReactMethod
-  public void printReceiptPage(String pageOptions){
+  public void addPage(String pageOptions, Boolean saveAsImage){
 		Bitmap bitmap = ReceiptBitmapGenerator.generateBitmap(this.reactContext, pageOptions, 384);
-		ReceiptStorage.store(this.reactContext, "criexpos", bitmap, "test-receipt");
+
+		if(saveAsImage == true) {
+				ReceiptStorage.store(this.reactContext, "pos-receipts", bitmap, "test-receipt");
+		}
 
 		try {
-	    printer.init();
-      printer.setGray(3);
       printer.printBitmap(bitmap);
-      printer.start();
 		} catch (Exception e) {}
   }
 }

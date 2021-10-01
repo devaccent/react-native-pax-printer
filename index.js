@@ -10,15 +10,22 @@ const TextStyles = {NORMAL: 'NORMAL', BOLD: 'BOLD', ITALIC: 'ITALIC', UNDERLINE:
 const getSafeCutMode = (cutMode) => cutMode === undefined ? FULL_CUT : cutMode;
 
 export function printString(text, cutMode) {
-  PaxPrinter.printLine(text, getSafeCutMode(cutMode));
+  PaxPrinter.initPrinter();
+  PaxPrinter.setGrayLevel(3);
+  PaxPrinter.addTextLine(text);
+  PaxPrinter.start();
 }
 
-export function printReceiptPage(receiptConfig){
+export function printPage(receiptConfig, saveAsImage = false){
   const json = JSON.stringify(receiptConfig);
-  PaxPrinter.printReceiptPage(json);
+
+  PaxPrinter.initPrinter();
+  PaxPrinter.setGrayLevel(3);
+  PaxPrinter.addPage(json, saveAsImage);
+  PaxPrinter.start();
 }
 
-export const ReceiptLineOptions = {
+export const PageLineOptions = {
   FONT_SIZES: FontSizes,
   ALIGNMENTS: Alignments,
   TEXT_STYLES: TextStyles,
