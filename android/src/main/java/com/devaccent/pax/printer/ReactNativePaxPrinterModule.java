@@ -32,61 +32,61 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
 		this.reactContext = reactContext;
 
 		try {
-      dal = NeptuneLiteUser.getInstance().getDal(reactContext);
-      printer = dal.getPrinter();
+			dal = NeptuneLiteUser.getInstance().getDal(reactContext);
+			printer = dal.getPrinter();
 		} catch (Exception e) {}
 	}
 
-  @Override
-  public String getName() {
-    return REACT_CLASS;
-  }
+	@Override
+	public String getName() {
+		return REACT_CLASS;
+	}
 
-  @ReactMethod
-  public void initPrinter() {
+	@ReactMethod
+	public void initPrinter() {
     try {
       printer.init();
     } catch(Exception e) {}
-  }
+	}
 
-  @ReactMethod
-  public void setGrayLevel(Integer grayLevel) {
+	@ReactMethod
+	public void setGrayLevel(Integer grayLevel) {
     try {
       printer.setGray(grayLevel);
     } catch(Exception e) {}
-  }
+	}
 
-  @ReactMethod
-  public void addTextLine(String text) {
+	@ReactMethod
+	public void addTextLine(String text) {
     try {
       printer.printStr(text, null);
     } catch(Exception e) {}
-  }
+	}
 
-  @ReactMethod
-  public void start(){
+	@ReactMethod
+	public void start(){
     try {
       printer.start();
     } catch(Exception e) {}
-  }
+	}
 
-  @ReactMethod
-  public void cutPaper(Double cutMode){
+	@ReactMethod
+	public void cutPaper(Double cutMode){
     try {
       printer.cutPaper(cutMode.intValue());
     } catch(Exception e) {}
-  }
+	}
 
-  @ReactMethod
-  public void addPage(String pageOptions, Boolean saveAsImage){
+	@ReactMethod
+	public void addPage(String pageOptions, Boolean saveAsImage){
 		Bitmap bitmap = ReceiptBitmapGenerator.generateBitmap(this.reactContext, pageOptions, 384);
 
 		if(saveAsImage == true) {
-				ReceiptStorage.store(this.reactContext, "pos-receipts", bitmap, "test-receipt");
+			ReceiptStorage.store(this.reactContext, "pos-receipts", bitmap, "test-receipt");
 		}
 
 		try {
       printer.printBitmap(bitmap);
 		} catch (Exception e) {}
-  }
+	}
 }
