@@ -86,7 +86,7 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
 		}
 
 		try {
-      printer.printBitmap(bitmap);
+			printer.printBitmap(bitmap);
 		} catch (Exception e) {}
 	}
 }
