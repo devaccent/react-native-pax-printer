@@ -16,13 +16,18 @@ export function printString(text, cutMode) {
   PaxPrinter.start();
 }
 
-export function printPage(receiptConfig, saveAsImage = false){
+export function printPage(receiptConfig){
   const json = JSON.stringify(receiptConfig);
 
   PaxPrinter.initPrinter();
   PaxPrinter.setGrayLevel(3);
-  PaxPrinter.addPage(json, saveAsImage);
+  PaxPrinter.addPage(json);
   PaxPrinter.start();
+}
+
+export function savePageAsImage(receiptConfig){
+  const json = JSON.stringify(receiptConfig);
+  PaxPrinter.savePageAsImage(json);
 }
 
 export const PageLineOptions = {

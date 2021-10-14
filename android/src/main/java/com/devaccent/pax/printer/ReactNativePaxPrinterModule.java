@@ -78,15 +78,17 @@ public class ReactNativePaxPrinterModule extends ReactContextBaseJavaModule {
 	}
 
 	@ReactMethod
-	public void addPage(String pageOptions, Boolean saveAsImage){
+	public void addPage(String pageOptions){
 		Bitmap bitmap = ReceiptBitmapGenerator.generateBitmap(this.reactContext, pageOptions, 384);
-
-		if(saveAsImage == true) {
-			ReceiptStorage.store(this.reactContext, "pos-receipts", bitmap, "test-receipt");
-		}
 
 		try {
 			printer.printBitmap(bitmap);
 		} catch (Exception e) {}
 	}
+
+	@ReactMethod
+  	public void savePageAsImage(String pageOptions){
+ 		Bitmap bitmap = ReceiptBitmapGenerator.generateBitmap(this.reactContext, pageOptions, 384);
+    	ReceiptStorage.store(this.reactContext, "pos-receipts", bitmap, "test-receipt");
+  	}
 }

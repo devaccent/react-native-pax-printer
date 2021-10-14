@@ -3,7 +3,8 @@ declare var PaxPrinter: {
   setGrayLevel: (grayLevel: number) => void,
 
   addTextLine: (text: string) => void,
-  addPage: (pageJson: string, saveAsImage: boolean) => void;
+  addPage: (pageJson: string) => void;
+  savePageAsImage: (pageJson: string) => void;
 
   start: () => void,
   cutPaper: (cutMode?: number) => void,
@@ -38,5 +39,6 @@ export declare const PageLineOptions: {
 
 export declare function printString(text: string, cutMode?: number): void;
 export declare function printPage(pageConfig: PageConfig): void;
+export declare function savePageAsImage(pageConfig: PageConfig): void;
 
 export default PaxPrinter;
